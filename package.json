@@ -1,0 +1,43 @@
+{
+  "name": "webpackzeroconf",
+  "version": "1.0.0",
+  "description": "creating a webpack project",
+  "main": "index.js",
+  "author": "krishna",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": "eslint",
+    "test/**/*.js": "eslint"
+  },
+  "scripts": {
+    "start": "webpack --mode development",
+    "start-dev": "webpack-dev-server --mode development --open",
+    "start-pro": "webpack-dev-server ./src/index.js --output ./foo/index.js --mode production --open",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "webpack-dev-server": "^3.1.10",
+    "@babel/preset-react": "^7.0.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint-config-c2-react": "^1.4.3",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "webpack": "^4.23.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+
+  }
+}
