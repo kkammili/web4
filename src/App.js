@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div>
       <p>React here!</p>
-        <div>check this out</div>
+        <div className={'bg-success'}>check this out</div>
     </div>
   )
 }
