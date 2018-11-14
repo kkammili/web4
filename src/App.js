@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom'
 
 const App = () => {
   return (
-    <div>
-      <p>React here!</p>
-        <div className={'bg-success'}>check this out</div>
-    </div>
+    <div className={'container container-fluid'} />
   )
 }
 

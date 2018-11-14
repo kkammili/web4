@@ -2,3 +2,4 @@ docs/
 src/index.ejs
 lib/
 dist/
+.idea/
