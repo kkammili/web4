@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 const App = () => {
   return (
-    <div className={'container container-fluid'} />
+      <div>chek thos</div>
   )
 }
 
