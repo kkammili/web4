@@ -1,8 +1,18 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 class App extends Component {
+  componentDidMount () {
+    axios.get('http://localhost:3000/users')
+      .then((res) => {
+        // console.log(res, '<---- resp check over here')
+      })
+      .catch((err) => {
+        // console.log(err, '<---- error check over here')
+      })
+  }
   render () {
     return (
       <div className={'container-fluid'}>
