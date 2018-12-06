@@ -10,7 +10,6 @@ import {fromJS} from 'immutable'
 
 // import Dashboard from '../../src/modules/Dashboard/redux/reducer'
 
-
 const initialState = fromJS({
   locationBeforeTransitions: null
 })
@@ -26,6 +25,6 @@ function Routes (state = initialState, {type, payload} = {}) {
 export default combineReducers({
   Routes,
   [http.key]: http,
-    Forms: FormsReducer,
-    // [Dashboard.key]: Dashboard,
+  Forms: FormsReducer
+  // [Dashboard.key]: Dashboard,
 })
