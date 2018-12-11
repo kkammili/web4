@@ -1,26 +1,16 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import {connect} from 'react-redux'
-import axios from 'axios'
+import {connect, Provider} from 'react-redux'
+import GitDisplay from './Git/components/GitDisplay'
+import store from './redux/store'
+// import axios from 'axios'
 
 class App extends Component {
-  componentDidMount () {
-    axios.get('http://localhost:3000/users')
-      .then((res) => {
-        // console.log(res, '<---- resp check over here')
-      })
-      .catch((err) => {
-        // console.log(err, '<---- error check over here')
-      })
-  }
   render () {
     return (
-      <div className={'container-fluid'}>
-        <div className={'row'}>
-          <div className={'col bg-success'}>check this</div>
-          <div className={'col bg-warning'}>out!!!</div>
-        </div>
-      </div>
+      <Provider store={store}>
+        <GitDisplay />
+      </Provider>
     )
   }
 }

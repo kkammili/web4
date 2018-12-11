@@ -1,9 +1,9 @@
 import axios from 'axios'
 import config from '../../config'
-import {addErrorInterceptor} from 'c2-error'
+// import {addErrorInterceptor} from 'c2-error'
 import {Map} from 'immutable'
 
-import browserStorage from '../../app/browserStorage'
+import browserStorage from '../../browserStorage'
 
 const ajax = axios.create({baseURL: config.apiBaseURL})
 
@@ -19,7 +19,7 @@ ajax.interceptors.request.use(client => {
   return client
 })
 
-addErrorInterceptor(ajax)
+// addErrorInterceptor(ajax)
 
 export default ajax
 
