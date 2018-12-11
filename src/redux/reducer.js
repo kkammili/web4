@@ -9,7 +9,7 @@ import {FormsReducer} from '../utils/form_utils'
 import {fromJS} from 'immutable'
 
 // import Dashboard from '../../src/modules/Dashboard/redux/reducer'
-
+import Git from '../../src/Git/redux/reducers'
 
 const initialState = fromJS({
   locationBeforeTransitions: null
@@ -26,6 +26,7 @@ function Routes (state = initialState, {type, payload} = {}) {
 export default combineReducers({
   Routes,
   [http.key]: http,
-    Forms: FormsReducer,
-    // [Dashboard.key]: Dashboard,
+  Forms: FormsReducer,
+  [Git.key]: Git
+  // [Dashboard.key]: Dashboard,
 })
