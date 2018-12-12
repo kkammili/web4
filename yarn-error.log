@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/10.11.0/bin/node /usr/local/Cellar/yarn/1.10.1/libexec/bin/yarn.js add c2-error
+  /usr/local/Cellar/node/10.11.0/bin/node /usr/local/Cellar/yarn/1.10.1/libexec/bin/yarn.js add babel-preset-2016
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/c2-error: Not found
+  Error: https://registry.yarnpkg.com/babel-preset-2016: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.10.1/libexec/lib/cli.js:61073:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.10.1/libexec/lib/cli.js:120166:22)
       at Request.emit (events.js:182:13)
