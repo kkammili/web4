@@ -36,13 +36,13 @@ export class GitDisplay extends Component {
           >Click Me</button>
         </div>
         {
-          this.props.gitData.size &&
+          this.props.gitData.size > 0  &&
               !this.props.gitData.get('name') &&
           (<div className={'alert alert-danger text-center'}>User name not present</div>)
         }
 
         {
-          this.props.gitData.size > 0 &&
+          // this.props.gitData.size > 0 &&
           this.props.gitData.get('name') && (
             <div style={{border: '2px solid black'}}>
               <div className={'row justify-content-center pt-4'}>

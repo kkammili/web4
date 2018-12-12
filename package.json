@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "creating a webpack project",
   "main": "index.js",
-  "author": "krishna",
+  "author": "",
   "license": "MIT",
   "husky": {
     "hooks": {
