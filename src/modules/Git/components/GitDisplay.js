@@ -4,6 +4,7 @@ import {gitHubData} from '../selectors'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Map} from 'immutable'
+import 'bootstrap';
 
 export class GitDisplay extends Component {
   constructor (props) {
