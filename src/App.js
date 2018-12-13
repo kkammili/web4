@@ -1,20 +1,22 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import {connect, Provider} from 'react-redux'
-import GitDisplay from './Git/components/GitDisplay'
+import AppRouter from './AppRouter'
+import {Provider} from 'react-redux'
 import store from './redux/store'
-// import axios from 'axios'
 
 class App extends Component {
   render () {
     return (
-      <Provider store={store}>
-        <GitDisplay />
-      </Provider>
+      <div>
+        <Provider store={store}>
+          <AppRouter />
+        </Provider>
+      </div>
     )
   }
 }
 
-export default connect(null, null)(App)
-
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(
+  <App />
+  , document.getElementById('app')
+)

@@ -40,6 +40,9 @@ module.exports = {
       chunkFilename: '[id].css'
     })
 
-  ]
-
+  ],
+  devServer: {
+    contentBase: './dist',
+    historyApiFallback: true
+  }
 }

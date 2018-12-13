@@ -1,6 +1,6 @@
-import {sendingRequest, receivedResponse} from '../../redux/http/redux'
+import {sendingRequest, receivedResponse} from '../../../redux/http/redux'
 // import ajax from '../../redux/http'
-import {createAction} from '../../utils/redux_utils'
+import {createAction} from '../../../utils/redux_utils'
 import axios from 'axios'
 
 export const FETCH_GITHUB_DATA = 'FETCH_GITHUB_DATA'

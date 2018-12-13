@@ -8,4 +8,8 @@ router.get('/fetchGitHubData', function (req, res) {
     }])
 })
 
+router.get('/about', function(req, res){
+    res.send("<div>html page from express</div>")
+})
+
 module.exports = router;

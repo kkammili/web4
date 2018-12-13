@@ -9,7 +9,7 @@ import {FormsReducer} from '../utils/form_utils'
 import {fromJS} from 'immutable'
 
 // import Dashboard from '../../src/modules/Dashboard/redux/reducer'
-import Git from '../../src/Git/redux/reducers'
+import Git from '../modules/Git/redux/reducers'
 
 const initialState = fromJS({
   locationBeforeTransitions: null
