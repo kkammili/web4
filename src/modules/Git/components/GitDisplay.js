@@ -1,26 +1,35 @@
-import React, {Component} from 'react'
+import React, {Component, createRef} from 'react'
 import {fetchGitHubData} from '../redux/actions'
 import {gitHubData} from '../selectors'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Map} from 'immutable'
-import 'bootstrap';
+import 'bootstrap'
 
 export class GitDisplay extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      userName: null
+      userName: null,
+      errors: ''
     }
+    this.inputBox = createRef()
   }
   fetchGitData =() => {
-    this.props.fetchGitHubData(this.state.userName)
+    this.inputBox.current.value = '' // empties the input box
+    this.props.fetchGitHubData(this.state.userName).then((res) => {
+      if (res.type === 'ERROR_FETCHING_USER') {
+        this.setState({
+          errors: res.error.errors.message
+        })
+      }
+    })
   }
 
   render () {
     return (
       <div className={'container-fluid'}>
-        <div className={'row pt-5 h2 justify-content-center text-info font-weight-bold'}>
+        <div className={'row pt-5 h2 justify-content-center text-dark font-weight-bold'}>
             Git Hub User Details Displayer
         </div>
 
@@ -29,6 +38,7 @@ export class GitDisplay extends Component {
             placeholder={'Enter git username and hit enter'}
             className={'col-2'}
             onChange={(e) => this.setState({userName: e.target.value})}
+            ref={this.inputBox}
           />
           <div className={'p-1'} />
           <button
@@ -37,14 +47,15 @@ export class GitDisplay extends Component {
           >Click Me</button>
         </div>
         {
-          this.props.gitData.size > 0 &&
-          !this.props.gitData.get('name') &&
-          (<div className={'alert alert-danger text-center'}>User name not present</div>)
+          this.state.errors || (this.props.gitData.size > 0 && !this.props.gitData.get('name')) &&
+            <div className={'alert alert-danger text-center'}>Error occoured {this.state.errors}</div>
         }
 
         {
           this.props.gitData.size > 0 &&
-          this.props.gitData.get('name') && (
+          this.props.gitData.get('name') &&
+              !this.state.errors &&
+          (
             <div style={{border: '2px solid black'}}>
               <div className={'row justify-content-center pt-4'}>
                 <img

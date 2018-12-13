@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom'
 import AppRouter from './AppRouter'
 import {Provider} from 'react-redux'
 import store from './redux/store'
-import 'bootstrap'
-
+import Bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.css' //eslint-disable-line
 
 class App extends Component {
   render () {
