@@ -12,7 +12,6 @@ const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,5 +53,5 @@ app.set('port', port)
 
 const server = http.createServer(app)
 app.listen(port, ()=>{
-  console.log('express server running on port:', port)
+  console.log(`express server running on port localhost:${port}/`)
 });
