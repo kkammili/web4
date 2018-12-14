@@ -1,11 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-/* GET users listing. */
-// router.get('/', routes.index);
-// // USER ROUTES
-// router.get('/user', user.index);          // Current user profile
-// router.get('/user/new', user.create);     // Create new user form
 // router.post('/user/new', user.doCreate);  // Create new user action
 // router.get('/user/edit', user.edit);      // Edit current user form
 // router.post('/user/edit', user.doEdit);   // Edit current user action
