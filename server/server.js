@@ -4,9 +4,16 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const http = require('http')
 
+//mongodb related
+const db = require('./model/db')
+const user = require('./routes/user');
+const project = require('./routes/project')
+
+
+//sample express mock
 const index = require('./routes/index');
-const users = require('./routes/users');
 const git = require('./routes/git')
+
 
 const app = express();
 
@@ -25,11 +32,17 @@ app.use(function(req, res, next) {
     next();
 })
 
+
+
+
 app.use('/', index);
-app.use('/users', users);
 app.use('/git', git)
 
-// catch 404 and forward to error handler
+
+app.use('/mongoUser', user);
+app.use('/mongoProject', project)
+
+
 app.use(function(req, res, next) {
   const err = new Error('Not Found');
   err.status = 404;
