@@ -15,7 +15,7 @@
     "test/**/*.js": "eslint"
   },
   "scripts": {
-    "start": "concurrently \"yarn webpack-dev-server --mode development --open\" \"npm run run-express-server\" ",
+    "start": "concurrently \"npm run run-express-server\" \"yarn webpack-dev-server --mode development --open\"",
     "run-webpack": "webpack --mode development",
     "start-dev": "webpack-dev-server --mode development --open",
     "start-pro": "webpack-dev-server ./src/index.js --output ./foo/index.js --mode production --open",
@@ -59,7 +59,6 @@
     "express": "^4.16.4",
     "file-loader": "^2.0.0",
     "immutable": "^4.0.0-rc.12",
-    "jade": "^1.11.0",
     "jquery": "^3.3.1",
     "mongoose": "^5.3.16",
     "nodemon": "^1.18.7",
