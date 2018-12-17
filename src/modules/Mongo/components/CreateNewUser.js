@@ -40,6 +40,7 @@ export class CreateNewUser extends Component {
         <div className={'container-fluid'}>
           <div className={'align-items-center'}>
             <div className='form-group'>
+              <label htmlFor='name'>Enter Username and email to post it:</label>
               <label htmlFor='name'>Name</label>
               <input type='name' className='form-control' id='name' aria-describedby='name'
                 placeholder='Enter name' onChange={(e) => this.setState({name: e.target.value})} />
@@ -86,6 +87,11 @@ export class CreateNewUser extends Component {
                 </tbody>
               </table>
             )}
+          </div>
+
+          <div className={'form-group pt-4'}>
+              <label htmlFor='fetchAllUser'>Fetch All Users /get</label>
+
           </div>
 
         </div>

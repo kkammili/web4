@@ -5,7 +5,7 @@ const dbURI = 'mongodb://localhost/MongoosePM'
 mongoose.connect(dbURI)
 
 mongoose.connection.on('connected', function () {
-  console.log('Mongoose connected to' + dbURI)
+  console.log('Mongoose connected to ' + dbURI)
 })
 
 mongoose.connection.on('error', function (err) {
