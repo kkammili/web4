@@ -4,14 +4,30 @@ const db = require('../model/db')
 
 router.post('/doCreate/:name/:email', (req, res)=>{
     const {name, email} = req.params
-    db.createUser(name, email)
+    if(name && email){
+        new db.userModal({
+            name,
+            email,
+            createdOn:Date.now(),
+            modifiedOn:Date.now(),
+            lastLogin:Date.now()
+        }).save()
+            .then((item) =>{
+                return res.status(200).json(item)
+            })
+            .catch(err => console.log(err, '<--- err saving data to db'))
+    }
 });        // Create new user action
-// router.get('/user/edit', user.edit);      // Edit current user form
 
 
 router.get('/doRead', (req, res)=>{
-    console.log(res.send(db.getUser()))
-    return res.json(db.getUser())
+    db.userModal.find({})
+        .then((item)=>{
+            res.json(item)
+        })
+        .catch((err)=>{
+            console.log(err, '<--- error pulling data from database')
+        })
 });
 
 

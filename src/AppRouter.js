@@ -10,7 +10,7 @@ class AppRouter extends Component {
       <Router>
         <React.Fragment>
           <Route exact path={`/`} component={Home} />
-          <Route path={'/Mongo/createNewUser'} component={CreateNewUser} />
+          <Route path={'/mongo'} component={CreateNewUser} />
           <Route path={'/git'} component={Git} />
         </React.Fragment>
       </Router>

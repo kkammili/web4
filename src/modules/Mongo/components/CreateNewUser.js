@@ -30,7 +30,7 @@ export class CreateNewUser extends Component {
     render () {
       return (
         <div className={'container-fluid'}>
-          <form className={'align-items-center'}>
+          <div className={'align-items-center'}>
             <div className='form-group'>
               <label htmlFor='name'>Name</label>
               <input type='name' className='form-control' id='name' aria-describedby='name'
@@ -48,9 +48,9 @@ export class CreateNewUser extends Component {
                             else.
               </small>
             </div>
-            <button type='submit' onClick={this.submit} className='btn btn-primary'>Submit</button>
+            <button onClick={this.submit} className='btn btn-primary'>Submit</button>
             <button onClick={this.fetchUsersData} className='btn btn-secondary'>Fetch Data</button>
-          </form>
+          </div>
         </div>
       )
     }

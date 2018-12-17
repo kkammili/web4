@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise;
 const dbURI = 'mongodb://localhost/MongoosePM'
 
 mongoose.connect(dbURI)
@@ -32,7 +33,7 @@ const projectSchema = new mongoose.Schema({
 })
 
 // Build the project model
-mongoose.model('Project', projectSchema)
+const projectModal = mongoose.model('Project', projectSchema)
 
 // user schema
 const userSchema = new mongoose.Schema({
@@ -44,27 +45,10 @@ const userSchema = new mongoose.Schema({
 })
 
 // user modal
-const User = mongoose.model('User', userSchema)
+const userModal = mongoose.model('User', userSchema)
 
-module.exports = {
-  createUser: (name, email) => {
-    new User({
-      name,
-      email
-    }).save((err, res) => {
-      if (err) {
-      } else {
-      }
-    })
-  },
-    getUser: ()=>{
-        User.find({}, (err, res) => {
-            if (err) {
-                console.log(err, "<--- error occoured while reading use")
-            } else {
-                console.log(res, '<--- res in db')
-                return res
-            }
-        })
-    }
+
+module.exports ={
+    userModal,
+    projectModal
 }
