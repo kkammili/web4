@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {createNewUser, fetchAllUsers} from '../redux/actions'
+import {createNewUser, fetchAllUsers, deleteUser} from '../redux/actions'
 import {allUsersData} from '../selectors'
 import {List} from 'immutable'
 
@@ -10,13 +10,15 @@ export class CreateNewUser extends Component {
     super(props)
     this.state = {
       name: null,
-      email: null
+      email: null,
+      delName: null
     }
   }
 
   static propTypes = {
     createNewUser: PropTypes.func,
     fetchAllUsers: PropTypes.func,
+    deleteUser: PropTypes.func,
     allUsers: PropTypes.instanceOf(List)
   }
 
@@ -29,6 +31,10 @@ export class CreateNewUser extends Component {
       })
     }
 
+    deleteSingleUser=() => {
+      this.props.deleteUser(this.state.delName)
+    }
+
     styleHeader = {
       border: '1px solid #dddddd',
       textAlign: 'left',
@@ -39,64 +45,76 @@ export class CreateNewUser extends Component {
       return (
         <div className={'container-fluid'}>
           <div className={'align-items-center'}>
-            <div className='form-group'>
-              <label htmlFor='name'>Enter Username and email to post it:</label>
-              <label htmlFor='name'>Name</label>
-              <input type='name' className='form-control' id='name' aria-describedby='name'
-                placeholder='Enter name' onChange={(e) => this.setState({name: e.target.value})} />
-              <small id='nameHelp' className='form-text text-muted'>Enter your name here
+
+            <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
+              <div className='form-group'>
+                <label htmlFor='name'>Enter Username and email to post it:</label>
+                <label htmlFor='name'>Name</label>
+                <input type='name' className='form-control' id='name' aria-describedby='name'
+                  placeholder='Enter name' onChange={(e) => this.setState({name: e.target.value})} />
+                <small id='nameHelp' className='form-text text-muted'>Enter your name here
                     else.
-              </small>
-            </div>
+                </small>
+              </div>
 
-            <div className='form-group'>
-              <label htmlFor='exampleInputEmail1'>Email address</label>
-              <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp'
-                placeholder='Enter email' onChange={(e) => this.setState({email: e.target.value})} />
-              <small id='emailHelp' className='form-text text-muted'>We'll never share your email with anyone
+              <div className='form-group'>
+                <label htmlFor='exampleInputEmail1'>Email address</label>
+                <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp'
+                  placeholder='Enter email' onChange={(e) => this.setState({email: e.target.value})} />
+                <small id='emailHelp' className='form-text text-muted'>We'll never share your email with anyone
                             else.
+                </small>
+              </div>
+              <button onClick={this.submit} className='btn btn-primary'>Submit</button>
+            </div>
+          </div>
+
+          <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
+            <div className={'form-group pt-4'}>
+              <label htmlFor='fetchAllUser'>Fetch All Users /get</label>
+            </div>
+            <button onClick={this.fetchUsersData} className='btn btn-secondary'>Show Users</button>
+            <div className={'pt-4'}>
+              {this.props.allUsers.size > 0 && (
+                <table style={{width: '100%'}}>
+                  <tbody>
+                    <tr>
+                      <th style={this.styleHeader}>Name:</th>
+                      <th style={this.styleHeader}>Email:</th>
+                    </tr>
+                    {this.props.allUsers.map((eachUser, index) => {
+                      return (
+                        <tr style={index % 2 === 0 ? {backgroundColor: '#dddddd'} : null} key={eachUser.get('_id')}>
+                          <td style={this.styleHeader}>
+                            {eachUser.get('name')}
+                          </td>
+                          <td style={this.styleHeader}>
+                            {eachUser.get('email')}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+
+          <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
+            <div className={'form-group pt-4'}>
+              <label htmlFor='fetchAllUser'>Delete a user /delete</label>
+              <label htmlFor='name'>name</label>
+              <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp'
+                placeholder='Delete User' onChange={(e) => this.setState({delName: e.target.value})} />
+              <small id='Help' className='form-text text-muted'>Enter a name to delete
+                      else.
               </small>
             </div>
-            <button onClick={this.submit} className='btn btn-primary'>Submit</button>
+            <button onClick={this.deleteSingleUser} className='btn btn-warning'>Delete User</button>
           </div>
-          <div className={'form-group pt-4'}>
-            <label htmlFor='fetchAllUser'>Fetch All Users /get</label>
-          </div>
-          <button onClick={this.fetchUsersData} className='btn btn-secondary'>Show Users</button>
-
-          <div className={'pt-4'}>
-            {this.props.allUsers.size > 0 && (
-              <table style={{width: '100%'}}>
-                <tbody>
-                  <tr>
-                    <th style={this.styleHeader}>Name:</th>
-                    <th style={this.styleHeader}>Email:</th>
-                  </tr>
-                  {this.props.allUsers.map((eachUser, index) => {
-                    return (
-                      <tr style={index % 2 === 0 ? {backgroundColor: '#dddddd'} : null} key={eachUser.get('_id')}>
-                        <td style={this.styleHeader}>
-                          {eachUser.get('name')}
-                        </td>
-                        <td style={this.styleHeader}>
-                          {eachUser.get('email')}
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            )}
-          </div>
-
-          <div className={'form-group pt-4'}>
-              <label htmlFor='fetchAllUser'>Fetch All Users /get</label>
-
-          </div>
-
         </div>
       )
     }
 }
 
-export default connect(allUsersData, {createNewUser, fetchAllUsers})(CreateNewUser)
+export default connect(allUsersData, {createNewUser, fetchAllUsers, deleteUser})(CreateNewUser)

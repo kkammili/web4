@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise
 const dbURI = 'mongodb://localhost/MongoosePM'
 
-mongoose.connect(dbURI)
+mongoose.connect(dbURI, {useCreateIndex: true, useNewUrlParser: true})
 
 mongoose.connection.on('connected', function () {
   console.log('Mongoose connected to ' + dbURI)
@@ -47,8 +47,7 @@ const userSchema = new mongoose.Schema({
 // user modal
 const userModal = mongoose.model('User', userSchema)
 
-
-module.exports ={
-    userModal,
-    projectModal
+module.exports = {
+  userModal,
+  projectModal
 }

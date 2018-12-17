@@ -48,3 +48,26 @@ export function fetchAllUsers () {
       })
   }
 }
+
+export const DELETE_USER = 'DELETE_USER'
+export const deleteUserSuccess = createAction(DELETE_USER, 'id', 'deleteUser')
+
+export const ERROR_DELETING_USER = 'ERROR_DELETING_USER'
+export const errorDeletingUser = createAction(ERROR_DELETING_USER, 'id', 'error')
+
+export const deleteUserId = () => `deleteUser`
+export function deleteUser (name) {
+  const id = deleteUserId()
+  return dispatch => {
+    dispatch(sendingRequest(id))
+    return ajax.delete(`mongoUser/doDelete/${name}`)
+      .then(res => {
+        dispatch(receivedResponse(id))
+        return dispatch(deleteUserSuccess(id, res.data))
+      })
+      .catch((errors) => {
+        dispatch(receivedResponse(id, {errors}))
+        return dispatch(errorDeletingUser(id, {errors}))
+      })
+  }
+}
