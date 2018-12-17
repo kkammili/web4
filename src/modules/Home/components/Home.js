@@ -12,7 +12,7 @@ export class Home extends Component {
         </div>
         <div className={'row'}>
           <div className={'col pt-4 pl-4 h4 font-weight-bold text-danger'}>
-                  other projects coming soon
+                  Hit /mongo and connect to mongo db for posting and getting user
           </div>
         </div>
       </div>
