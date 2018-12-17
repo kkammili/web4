@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {createNewUser, fetchAllUsers} from '../redux/actions'
+import {allUsersData} from '../selectors'
+import {List} from 'immutable'
 
 export class CreateNewUser extends Component {
   constructor (props) {
@@ -14,7 +16,8 @@ export class CreateNewUser extends Component {
 
   static propTypes = {
     createNewUser: PropTypes.func,
-    fetchAllUsers: PropTypes.func
+    fetchAllUsers: PropTypes.func,
+    allUsers: PropTypes.instanceOf(List)
   }
 
   submit=() => {
@@ -23,8 +26,13 @@ export class CreateNewUser extends Component {
 
     fetchUsersData=() => {
       this.props.fetchAllUsers().then((res) => {
-        // console.log(res, '<--- resp occouring in promise')
       })
+    }
+
+    styleHeader = {
+      border: '1px solid #dddddd',
+      textAlign: 'left',
+      padding: '8px'
     }
 
     render () {
@@ -49,11 +57,40 @@ export class CreateNewUser extends Component {
               </small>
             </div>
             <button onClick={this.submit} className='btn btn-primary'>Submit</button>
-            <button onClick={this.fetchUsersData} className='btn btn-secondary'>Fetch Data</button>
           </div>
+          <div className={'form-group pt-4'}>
+            <label htmlFor='fetchAllUser'>Fetch All Users /get</label>
+          </div>
+          <button onClick={this.fetchUsersData} className='btn btn-secondary'>Show Users</button>
+
+          <div className={'pt-4'}>
+            {this.props.allUsers.size > 0 && (
+              <table style={{width: '100%'}}>
+                <tbody>
+                  <tr>
+                    <th style={this.styleHeader}>Name:</th>
+                    <th style={this.styleHeader}>Email:</th>
+                  </tr>
+                  {this.props.allUsers.map((eachUser, index) => {
+                    return (
+                      <tr style={index % 2 === 0 ? {backgroundColor: '#dddddd'} : null} key={eachUser.get('_id')}>
+                        <td style={this.styleHeader}>
+                          {eachUser.get('name')}
+                        </td>
+                        <td style={this.styleHeader}>
+                          {eachUser.get('email')}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
+
         </div>
       )
     }
 }
 
-export default connect(null, {createNewUser, fetchAllUsers})(CreateNewUser)
+export default connect(allUsersData, {createNewUser, fetchAllUsers})(CreateNewUser)

@@ -39,7 +39,6 @@ export function fetchAllUsers () {
     dispatch(sendingRequest(id))
     return ajax.get(`mongoUser/doRead`)
       .then(res => {
-        // console.log(res, '<--- rsp in action')
         dispatch(receivedResponse(id))
         return dispatch(fetchAllUsersSuccess(id, res.data))
       })
