@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {createNewUser, fetchAllUsers, deleteUser} from '../redux/actions'
+import {createNewUser, fetchAllUsers, deleteUser, CREATE_NEW_USER, DELETE_USER} from '../redux/actions'
 import {allUsersData} from '../selectors'
 import {List} from 'immutable'
+import ToastComponent from '../../ToastMessages/ToastComponent'
 
 export class CreateNewUser extends Component {
   constructor (props) {
@@ -11,7 +12,8 @@ export class CreateNewUser extends Component {
     this.state = {
       name: null,
       email: null,
-      delName: null
+      delName: null,
+      error: null
     }
   }
 
@@ -24,15 +26,24 @@ export class CreateNewUser extends Component {
 
   submit=() => {
     this.props.createNewUser(this.state.name, this.state.email)
-  }
-
-    fetchUsersData=() => {
-      this.props.fetchAllUsers().then((res) => {
+      .then((res) => {
+        if (res.type === CREATE_NEW_USER) {
+          this.props.fetchAllUsers()
+        }
       })
-    }
+  }
 
     deleteSingleUser=() => {
       this.props.deleteUser(this.state.delName)
+        .then((res) => {
+          if (res.type === DELETE_USER) {
+            this.props.fetchAllUsers()
+          } else {
+            this.setState({
+              error: res.error.errors.response.data.error
+            })
+          }
+        })
     }
 
     styleHeader = {
@@ -44,6 +55,8 @@ export class CreateNewUser extends Component {
     render () {
       return (
         <div className={'container-fluid'}>
+          <ToastComponent />
+
           <div className={'align-items-center'}>
 
             <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
@@ -71,9 +84,21 @@ export class CreateNewUser extends Component {
 
           <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
             <div className={'form-group pt-4'}>
-              <label htmlFor='fetchAllUser'>Fetch All Users /get</label>
+              <label htmlFor='fetchAllUser'>Delete a user /delete</label>
+              <label htmlFor='name'>name</label>
+              <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp'
+                placeholder='Delete User' onChange={(e) => this.setState({delName: e.target.value})} />
+              <small id='Help' className='form-text text-muted'>Enter a name to delete
+                        else.
+              </small>
             </div>
-            <button onClick={this.fetchUsersData} className='btn btn-secondary'>Show Users</button>
+            <button onClick={this.deleteSingleUser} className='btn btn-warning'>Delete User</button>
+          </div>
+
+          <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
+            <div className={'form-group pt-4'}>
+              <label htmlFor='fetchAllUser'>Show All users /get</label>
+            </div>
             <div className={'pt-4'}>
               {this.props.allUsers.size > 0 && (
                 <table style={{width: '100%'}}>
@@ -100,18 +125,6 @@ export class CreateNewUser extends Component {
             </div>
           </div>
 
-          <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
-            <div className={'form-group pt-4'}>
-              <label htmlFor='fetchAllUser'>Delete a user /delete</label>
-              <label htmlFor='name'>name</label>
-              <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp'
-                placeholder='Delete User' onChange={(e) => this.setState({delName: e.target.value})} />
-              <small id='Help' className='form-text text-muted'>Enter a name to delete
-                      else.
-              </small>
-            </div>
-            <button onClick={this.deleteSingleUser} className='btn btn-warning'>Delete User</button>
-          </div>
         </div>
       )
     }

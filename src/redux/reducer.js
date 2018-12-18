@@ -11,6 +11,7 @@ import {fromJS} from 'immutable'
 // import Dashboard from '../../src/modules/Dashboard/redux/reducer'
 import Git from '../modules/Git/redux/reducers'
 import Mongo from '../modules/Mongo/redux/reducers'
+import Toast from '../modules/ToastMessages/redux/reducer'
 
 const initialState = fromJS({
   locationBeforeTransitions: null
@@ -29,6 +30,7 @@ export default combineReducers({
   [http.key]: http,
   Forms: FormsReducer,
   [Git.key]: Git,
-  [Mongo.key]: Mongo
+  [Mongo.key]: Mongo,
+  [Toast.key]: Toast
   // [Dashboard.key]: Dashboard,
 })
