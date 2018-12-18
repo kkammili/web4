@@ -2,6 +2,7 @@ import {sendingRequest, receivedResponse} from '../../../redux/http/redux'
 import ajax from '../../../redux/http'
 import {createAction} from '../../../utils/redux_utils'
 // import axios from 'axios'
+import {displayToastMessage} from '../../ToastMessages/redux/actions'
 
 export const CREATE_NEW_USER = 'CREATE_NEW_USER'
 export const createNewUserSuccess = createAction(CREATE_NEW_USER, 'id', 'createNewUser')
@@ -67,6 +68,7 @@ export function deleteUser (name) {
       })
       .catch((errors) => {
         dispatch(receivedResponse(id, {errors}))
+        dispatch(displayToastMessage(id, 'user ' + {errors}.errors.response.data.error, 'warning'))
         return dispatch(errorDeletingUser(id, {errors}))
       })
   }

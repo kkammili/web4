@@ -24,7 +24,11 @@ router.post('/doCreate/:name/:email', (req, res) => {
 router.get('/doRead', (req, res) => {
   db.userModal.find({})
     .then((item) => {
-      res.json(item)
+        if(item){
+            res.json(item)
+        }else{
+            res.status(404).json({error:'no user present in db'})
+        }
     })
     .catch((err) => {
         throw err
@@ -34,11 +38,15 @@ router.get('/doRead', (req, res) => {
 router.delete('/doDelete/:name', (req, res) => {
   if (req.params) {
     const name = req.params.name
-    db.userModal.deleteOne({
+    db.userModal.findOneAndDelete({
       name
     })
       .then((item) => {
-        res.send(`${item} ${name} has been successfully deleted`)
+         if(item){
+             res.send(`${item.name} has been successfully deleted`)
+         }else{
+             res.status(404).json({error: `${name} not found`})
+         }
       })
       .catch((err) => {
           throw err
