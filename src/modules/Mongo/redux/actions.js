@@ -68,8 +68,7 @@ export function deleteUser (name) {
       })
       .catch((errors) => {
         dispatch(receivedResponse(id, {errors}))
-        dispatch(displayToastMessage('toastid', 'this is the message1', dispatch))
-        dispatch(displayToastMessage('toastid2', 'this is the message2', dispatch))
+        dispatch(displayToastMessage(id, 'user ' + {errors}.errors.response.data.error, 'warning'))
         return dispatch(errorDeletingUser(id, {errors}))
       })
   }

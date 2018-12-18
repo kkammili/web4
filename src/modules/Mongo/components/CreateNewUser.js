@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {createNewUser, fetchAllUsers, deleteUser, CREATE_NEW_USER, DELETE_USER} from '../redux/actions'
 import {allUsersData} from '../selectors'
 import {List} from 'immutable'
-import ToastComponent from '../../ToastMessages/ToastComponent'
 
 export class CreateNewUser extends Component {
   constructor (props) {
@@ -55,8 +54,6 @@ export class CreateNewUser extends Component {
     render () {
       return (
         <div className={'container-fluid'}>
-          <ToastComponent />
-
           <div className={'align-items-center'}>
 
             <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
