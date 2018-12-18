@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import toastMessageData from './selector'
 import {displayToastMessage, clearToastMessage} from './redux/actions'
 import {Map} from 'immutable'
+import {faTimes} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const styles = {
   success: {
@@ -56,11 +58,18 @@ class Message extends Component {
           style={getStyle(style || 'success')}
         >
           {message}
-          {/* <TimesCircleO */}
-          {/* onClick={this.handleCloseClick} */}
-          {/* style={{height: '25px', width: '25px', cursor: 'pointer', position: 'relative', bottom: '1px'}} */}
-          {/* className={'pl-2'} */}
-          {/* /> */}
+          <FontAwesomeIcon
+            style={{
+              height: '16px',
+              width: '16px',
+              cursor: 'pointer',
+              position: 'relative',
+              left: '50px',
+              bottom: '9px'
+            }}
+            icon={faTimes}
+            onClick={() => this.props.clearToastMessage(parseInt(this.props.index))}
+          />
         </i>
       )
     }
