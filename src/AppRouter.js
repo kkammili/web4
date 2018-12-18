@@ -10,9 +10,8 @@ class AppRouter extends Component {
     return (
       <Router>
         <React.Fragment>
-            <ToastComponent/>
-
-            <Route exact path={`/`} component={Home} />
+          <ToastComponent />
+          <Route exact path={`/`} component={Home} />
           <Route path={'/mongo'} component={CreateNewUser} />
           <Route path={'/git'} component={Git} />
         </React.Fragment>
