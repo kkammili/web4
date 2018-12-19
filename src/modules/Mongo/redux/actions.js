@@ -41,6 +41,9 @@ export function fetchAllUsers () {
     return ajax.get(`mongoUser/doRead`)
       .then(res => {
         dispatch(receivedResponse(id))
+        if (res.data.length === 0) {
+          dispatch(displayToastMessage(id, 'no users present in db', 'error'))
+        }
         return dispatch(fetchAllUsersSuccess(id, res.data))
       })
       .catch((errors) => {
