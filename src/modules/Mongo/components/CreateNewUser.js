@@ -59,7 +59,6 @@ export class CreateNewUser extends Component {
             <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
               <div className='form-group'>
                 <label htmlFor='name'>Enter Username and email to post it:</label>
-                <br />
                 <label htmlFor='name'>Name</label>
                 <input type='name' className='form-control' id='name' aria-describedby='name'
                   placeholder='Enter name' onChange={(e) => this.setState({name: e.target.value})} />
@@ -86,8 +85,8 @@ export class CreateNewUser extends Component {
               <label htmlFor='name'>name</label>
               <input type='email' className='form-control' id='exampleInputEmail1' aria-describedby='emailHelp'
                 placeholder='Delete User' onChange={(e) => this.setState({delName: e.target.value})} />
-              <small id='Help' className='form-text text-muted'>
-                  Enter a name to delete
+              <small id='Help' className='form-text text-muted'>Enter a name to delete
+                        else.
               </small>
             </div>
             <button onClick={this.deleteSingleUser} className='btn btn-warning'>Delete User</button>
