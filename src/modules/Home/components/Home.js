@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 export class Home extends Component {
   render () {
     return (
-      <div style={{height: '1000px'}} className={'container-fluid bg-dark'}>
+      <div className={'h-100 container-fluid bg-dark'}>
         <div className={'row'}>
           <div className={'col pt-4 pl-4 h4 font-weight-bold text-info'}>
                   Hit /git route for redirecting to git fetcher project
