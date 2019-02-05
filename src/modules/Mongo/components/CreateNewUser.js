@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {createNewUser, fetchAllUsers, deleteUser, CREATE_NEW_USER, DELETE_USER} from '../redux/actions'
 import {allUsersData} from '../selectors'
 import {List} from 'immutable'
+import {faSync} from '@fortawesome/free-solid-svg-icons/index'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 export class CreateNewUser extends Component {
   constructor (props) {
@@ -95,6 +97,11 @@ export class CreateNewUser extends Component {
           <div style={{border: '3px solid black', borderRadius: '5px', padding: '10px', marginTop: '20px'}}>
             <div className={'form-group pt-4'}>
               <label htmlFor='fetchAllUser'>Show All users /get</label>
+              <FontAwesomeIcon
+                style={{float: 'right', marginRight: '20px'}}
+                icon={faSync}
+                onClick={this.props.fetchAllUsers}
+              />
             </div>
             <div className={'pt-4'}>
               {this.props.allUsers.size > 0 && (

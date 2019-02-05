@@ -1,7 +1,7 @@
 {
-  "name": "webpackzeroconf",
-  "version": "1.0.0",
-  "description": "creating a webpack project",
+  "name": "krishnas demo package",
+  "version": "0.1.0",
+  "description": "creating some demo components with webpack 4",
   "main": "index.js",
   "author": "",
   "license": "MIT",

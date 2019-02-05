@@ -38,7 +38,8 @@ class Message extends Component {
       message: PropTypes.string,
       style: PropTypes.string,
       index: PropTypes.string,
-      clearToastMessage: PropTypes.func
+      clearToastMessage: PropTypes.func,
+      id: PropTypes.string
     }
     componentDidMount () {
       let timer = null
@@ -56,6 +57,7 @@ class Message extends Component {
       return (
         <i
           style={getStyle(style || 'success')}
+          key={this.props.id}
         >
           {message}
           <FontAwesomeIcon
@@ -63,9 +65,8 @@ class Message extends Component {
               height: '16px',
               width: '16px',
               cursor: 'pointer',
-              position: 'relative',
-              left: '50px',
-              bottom: '9px'
+              position: 'absolute',
+              right: '18px'
             }}
             icon={faTimes}
             onClick={() => this.props.clearToastMessage(parseInt(this.props.index))}
@@ -97,6 +98,7 @@ class ToastComponent extends Component {
                 <Message
                   message={message.get('message')}
                   key={message.get('id')}
+                  id={message.get('id')}
                   style={message.get('style')}
                   index={index.toString()}
                   {...this.props}
