@@ -15,14 +15,14 @@
     "test/**/*.js": "eslint"
   },
   "scripts": {
-    "start": "concurrently \"npm run run-express-server\" \"yarn webpack-dev-server --mode development --open\"",
+    "start": "concurrently cross-env PORT=8888 \"npm run run-express-server\" \"yarn webpack-dev-server --mode development --open\"",
     "run-webpack": "webpack --mode development",
     "start-dev": "webpack-dev-server --mode development --open",
     "start-pro": "webpack-dev-server ./src/index.js --output ./foo/index.js --mode production --open",
     "build": "webpack --mode production",
     "run-express-server": "nodemon ./server/server.js"
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
@@ -59,6 +59,7 @@
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "debug": "^4.1.0",
     "express": "^4.16.4",
     "express-react-views": "^0.11.0",

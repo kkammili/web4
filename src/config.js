@@ -9,7 +9,7 @@ const NO_API = !!global.NO_API
 //   apiBaseURL = `${protocol}//${hostname}${PORT ? `:${PORT}` : ''}`
 // }
 
-const apiBaseURL = 'http://localhost:3000/'
+const apiBaseURL = 'http://localhost:5000/'
 
 const config = {
   application: 'Sample Application',
