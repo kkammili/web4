@@ -15,7 +15,7 @@
     "test/**/*.js": "eslint"
   },
   "scripts": {
-    "start": "concurrently \"npm run run-express-server\" \"yarn webpack-dev-server --mode development --open\"",
+    "start": "concurrently \"npm run run-express-server\" \"yarn webpack-dev-server --content-base dist --hot --mode development --open\"",
     "run-webpack": "webpack --mode development",
     "start-dev": "webpack-dev-server --mode development --open",
     "start-pro": "webpack-dev-server ./src/index.js --output ./foo/index.js --mode production --open",
