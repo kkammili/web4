@@ -13,6 +13,11 @@ export class Home extends Component {
           </div>
         </div>
         <div className={'row'}>
+          <div className={'col pt-4 pl-4 h4 font-weight-bold text-info'}>
+              Hit /maps route for redirecting to my maps page
+          </div>
+        </div>
+        <div className={'row'}>
           <div className={'col pt-4 pl-4 h4 font-weight-bold text-danger'}>
                   Hit /mongo and connect to mongo db for posting and getting user
           </div>
