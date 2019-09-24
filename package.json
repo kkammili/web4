@@ -75,6 +75,7 @@
     "popper": "^1.0.1",
     "popper.js": "^1.14.6",
     "prop-types": "^15.6.2",
+    "react-leaflet": "^2.4.0",
     "reselect": "^4.0.0",
     "url-loader": "^1.1.2"
   }

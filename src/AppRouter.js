@@ -5,6 +5,7 @@ import Git from '../src/modules/Git/components/GitDisplay'
 import Bio from '../src/modules/Bio/components/Bio'
 import CreateNewUser from './modules/Mongo/components/CreateNewUser'
 import ToastComponent from '../src/modules/ToastMessages/ToastComponent'
+import Maps from '../src/modules/Maps/components/Maps'
 
 class AppRouter extends Component {
   render () {
@@ -16,6 +17,7 @@ class AppRouter extends Component {
           <Route path={'/mongo'} component={CreateNewUser} />
           <Route path={'/git'} component={Git} />
           <Route path={'/bio'} component={Bio} />
+          <Route path={'/maps'} component={Maps} />
         </React.Fragment>
       </Router>
     )
