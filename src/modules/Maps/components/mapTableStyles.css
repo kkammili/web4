@@ -1,0 +1,15 @@
+td {
+    padding: 5px;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.searchMoveRight {
+    left: 30px !important;
+    height: 37px !important;
+    width:300px !important;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
