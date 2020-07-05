@@ -1,19 +1,25 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, createRef} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {compose, withProps} from 'recompose'
 import mapStyles from './mapStyles'
-import {fetchMeteoriteData} from '../redux/actions'
+import {fetchMeteoriteData, fetchLatLng} from '../redux/actions'
 import {withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow} from 'react-google-maps'
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer'
-const sun = require('../asteroid.png')
+const asteroid = require('../asteroid.png')
 require('./mapTableStyles.css')
+const {SearchBox} = require('react-google-maps/lib/components/places/SearchBox')
 const apiKey = require('../../../../env.js').apiKey
 
-export function GoogleMapsComp ({fetchMeteoriteData}) {
+export function GoogleMapsComp ({fetchMeteoriteData, bounds, fetchLatLng}) {
+  const searchPlace = createRef()
+  const googleMapRef = createRef()
   const [zoom, setZoom] = useState(2)
   const [meteorites, setMeteorites] = useState([])
   const [selectedMarker, setSelectedMarker] = useState(false)
+  const [hoveringMarker, setHoveringMarker] = useState(false)
+  const [pointPlace, setPointPlace] = useState(false)
+  const [selectedPointPlace, setSelectedPointPlace] = useState(false)
 
   useEffect(() => {
     fetchMeteoriteData().then(res => {
@@ -25,12 +31,57 @@ export function GoogleMapsComp ({fetchMeteoriteData}) {
     <div>
       <GoogleMap
         defaultZoom={zoom}
+        zoom={zoom}
         defaultCenter={{
           lat: 10,
           lng: 32
         }}
-        options={{styles: mapStyles, disableDefaultUI: true, zoomControl: true}}
+        onZoomChanged={() => {
+          setSelectedMarker(false)
+          setHoveringMarker(false)
+          setSelectedPointPlace(false)
+          // setPointPlace(false)
+        }}
+        ref={googleMapRef}
+        options={{styles: mapStyles, disableDefaultUI: true, zoomControl: true, minZoom: 2}}
       >
+        <div style={{position: 'absolute', top: 15, right: 15, zIndex: 20, display: 'flex', height: 73}}>
+          <h5 style={{display: 'flex', alignSelf: 'center'}}>Meteorites</h5>
+          <img style={{height: 50, width: 50}} src={asteroid} alt={'asteroid image'} />
+        </div>
+        <SearchBox
+          bounds={bounds}
+          controlPosition={google.maps.ControlPosition.TOP_LEFT}   //eslint-disable-line
+          onPlacesChanged={() => {
+            let address = searchPlace.current.value
+            fetchLatLng(address, apiKey).then(res => {
+              let location = res.coords.geometry.location
+              googleMapRef.current.panTo(location) // Make map global
+              setZoom(14)
+              setPointPlace({...location, address})
+            })
+          }}
+        >
+          <input
+            type='search'
+            className={'searchMoveRight'}
+            placeholder='search ....'
+            ref={searchPlace}
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              marginTop: `27px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`
+            }}
+          />
+        </SearchBox>
         <MarkerClusterer
           averageCenter
           enableRetinaIcons
@@ -41,24 +92,34 @@ export function GoogleMapsComp ({fetchMeteoriteData}) {
             if (geolocation) {
               return (
                 <Marker
-                  icon={{
-                    url: sun,
-                    scaledSize: new window.google.maps.Size(30, 30),
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15)
-                  }}
+                  icon={
+                    ((hoveringMarker.name === meteorite.name) || (selectedMarker.name === meteorite.name))
+                      ? {
+                        url: asteroid,
+                        scaledSize: new window.google.maps.Size(60, 60),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(30, 30)
+                      }
+                      : {
+                        url: asteroid,
+                        scaledSize: new window.google.maps.Size(30, 30),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(15, 15)
+                      }
+                  }
                   key={meteorite.name}
                   position={{lat: parseFloat(geolocation.latitude), lng: parseFloat(geolocation.longitude)}}
                   onClick={() => setSelectedMarker(meteorite)}
+                  onMouseOver={() => setHoveringMarker(meteorite)}
+                  onMouseOut={() => setHoveringMarker(false)}
                   name={meteorite.name}
-                  // marker={meteorite.name}
                 />
               )
             }
           })}
         </MarkerClusterer>
 
-        {selectedMarker ? (
+        {selectedMarker && (
           <InfoWindow
             position={{
               lat: parseFloat(selectedMarker && selectedMarker.geolocation.latitude),
@@ -85,7 +146,45 @@ export function GoogleMapsComp ({fetchMeteoriteData}) {
               </tbody>
             </table>
           </InfoWindow>
-        ) : null}
+        )}
+
+        {pointPlace && (
+          <Marker
+            position={{lat: parseFloat(pointPlace.lat), lng: parseFloat(pointPlace.lng)}}
+            onClick={() => setSelectedPointPlace(true)}
+          />
+        )}
+
+        {
+          selectedPointPlace && (
+            <InfoWindow
+              options={{pixelOffset: new window.google.maps.Size(0, -40)}}
+
+              position={{
+                lat: pointPlace && parseFloat(pointPlace.lat),
+                lng: pointPlace && parseFloat(pointPlace.lng)
+              }}
+              onCloseClick={() => setSelectedPointPlace(false)}
+            >
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Address:</td>
+                    <td>{pointPlace && pointPlace.address}</td>
+                  </tr>
+                  <tr>
+                    <td>Latitude:</td>
+                    <td>{pointPlace.lat}</td>
+                  </tr>
+                  <tr>
+                    <td>Longitude:</td>
+                    <td>{pointPlace.lng}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </InfoWindow>
+          )
+        }
 
       </GoogleMap>
     </div>
@@ -93,7 +192,9 @@ export function GoogleMapsComp ({fetchMeteoriteData}) {
 }
 
 GoogleMapsComp.propTypes = {
-  fetchMeteoriteData: PropTypes.func
+  fetchMeteoriteData: PropTypes.func,
+  fetchLatLng: PropTypes.func,
+  bounds: PropTypes.object
 }
 
 const WrappedMap = compose(
@@ -104,7 +205,7 @@ const WrappedMap = compose(
     containerElement: <div style={{height: `100vh`}} />,
     mapElement: <div style={{height: `100%`}} />
   }),
-  connect(null, {fetchMeteoriteData}),
+  connect(null, {fetchMeteoriteData, fetchLatLng}),
   withScriptjs,
   withGoogleMap
 )(GoogleMapsComp)
